@@ -1,3 +1,5 @@
+<?php echo '<?php' ?>
+
 use Illuminate\Database\Migrations\Migration;
 
 class CharifyCountriesTable extends Migration {

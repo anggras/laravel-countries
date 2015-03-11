@@ -18,15 +18,15 @@ class CountriesServiceProvider extends ServiceProvider {
 	 */
 	protected $defer = false;
 
-        /**
-        * Bootstrap the application.
-        *
-        * @return void
-        */
-        public function boot()
-        {
-        	$this->loadViewsFrom(__DIR__.'/../../views', 'laravel-countries');
-        }        
+	/**
+	 * Bootstrap the application.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		$this->loadViewsFrom(__DIR__.'/../../views', 'laravel-countries');
+	}        
         
 	/**
 	 * Register everything.

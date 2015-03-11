@@ -1,3 +1,5 @@
+<?php echo '<?php' ?>
+
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class CountriesSeeder extends Seeder {

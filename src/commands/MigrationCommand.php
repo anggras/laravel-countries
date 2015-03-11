@@ -42,9 +42,6 @@ class MigrationCommand extends Command {
             $this->info( "Creating migration and seeder..." );
             if( $this->createMigration( 'countries' ) )
             {
-                $this->line('');
-                
-                $this->call('dump-autoload', array());
                 
                 $this->line('');
                 
@@ -94,7 +91,7 @@ class MigrationCommand extends Command {
                 
                 $fs = fopen($migrationFile, 'x');
                 if ($fs) {
-                    $output = "<?php\n\n" .$this->laravel->view-->make($outputFile)->with('table', 'countries')->render();
+                    $output = $this->laravel->view->make($outputFile)->with('table', 'countries')->render();
                     
                     fwrite($fs, $output);
                     fclose($fs);
@@ -109,7 +106,7 @@ class MigrationCommand extends Command {
         
         //Create the seeder
         $seeder_file = base_path("/database/seeds")."/CountriesSeeder.php";
-        $output = "<?php\n\n" .$this->laravel->view->make('countries::generators.seeder')->render();
+        $output = $this->laravel->view->make('countries::generators.seeder')->render();
         
         if (!file_exists( $seeder_file )) {
             $fs = fopen($seeder_file, 'x');
