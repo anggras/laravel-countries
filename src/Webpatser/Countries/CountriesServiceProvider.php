@@ -25,7 +25,7 @@ class CountriesServiceProvider extends ServiceProvider {
         */
         public function boot()
         {
-            $this->package('webpatser/laravel-countries');
+            $this->loadViewsFrom(__DIR__.'/../../views', 'laravel-countries');
         }        
         
 	/**
