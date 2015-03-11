@@ -25,7 +25,7 @@ class CountriesServiceProvider extends ServiceProvider {
         */
         public function boot()
         {
-            $this->loadViewsFrom(__DIR__.'/../../views', 'laravel-countries');
+        	$this->loadViewsFrom(__DIR__.'/../../views', 'laravel-countries');
         }        
         
 	/**

@@ -22,24 +22,14 @@ class MigrationCommand extends Command {
     protected $description = 'Creates a migration following the Laravel-countries specifications.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $app = app();
-        $app['view']->addNamespace('countries',substr(__DIR__,0,-8).'views');
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
      */
     public function fire()
     {
+        $this->laravel->view->addNamespace('countries',substr(__DIR__,0,-8).'views');
+
         $this->line('');
         $this->info('The migration process will create a migration file and a seeder for the countries list');
         
@@ -92,8 +82,8 @@ class MigrationCommand extends Command {
         //Create the migration
         $app = app();
         $migrationFiles = array(
-            $this->laravel->path."/../database/migrations/*_setup_countries_table.php" => 'countries::generators.migration',
-            $this->laravel->path."/../database/migrations/*_charify_countries_table.php" => 'countries::generators.char_migration'
+            base_path("/database/migrations")."/*_setup_countries_table.php" => 'countries::generators.migration',
+            base_path("/database/migrations")."/*_charify_countries_table.php" => 'countries::generators.char_migration'
         );
 
         $seconds = 0;
@@ -104,7 +94,7 @@ class MigrationCommand extends Command {
                 
                 $fs = fopen($migrationFile, 'x');
                 if ($fs) {
-                    $output = "<?php\n\n" .$app['view']->make($outputFile)->with('table', 'countries')->render();
+                    $output = "<?php\n\n" .$this->laravel->view-->make($outputFile)->with('table', 'countries')->render();
                     
                     fwrite($fs, $output);
                     fclose($fs);
@@ -118,8 +108,8 @@ class MigrationCommand extends Command {
         
         
         //Create the seeder
-        $seeder_file = $this->laravel->path."/database/seeds/CountriesSeeder.php";
-        $output = "<?php\n\n" .$app['view']->make('countries::generators.seeder')->render();
+        $seeder_file = base_path("/database/seeds")."/CountriesSeeder.php";
+        $output = "<?php\n\n" .$this->laravel->view->make('countries::generators.seeder')->render();
         
         if (!file_exists( $seeder_file )) {
             $fs = fopen($seeder_file, 'x');
