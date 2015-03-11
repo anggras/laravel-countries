@@ -26,6 +26,11 @@ class CountriesServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->loadViewsFrom(__DIR__.'/../../views', 'laravel-countries');
+
+		// Publish config files
+        $this->publishes([
+            __DIR__.'/../../config/config.php' => config_path('countries.php'),
+        ]);
 	}        
         
 	/**
@@ -37,6 +42,7 @@ class CountriesServiceProvider extends ServiceProvider {
 	{
 	    $this->registerCountries();
 	    $this->registerCommands();
+	    $this->mergeConfig();
 	}
 
 	/**
@@ -67,6 +73,18 @@ class CountriesServiceProvider extends ServiceProvider {
 	    $this->commands('command.countries.migration');
 	}
 
+	/**
+     * Merges user's and countries' configs.
+     *
+     * @return void
+     */
+    private function mergeConfig()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/config.php', 'laravel-countries'
+        );
+    }
+    
 	/**
 	 * Get the services provided by the provider.
 	 *

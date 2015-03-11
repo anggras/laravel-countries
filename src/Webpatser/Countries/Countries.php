@@ -27,7 +27,7 @@ class Countries extends \Eloquent {
      */
     public function __construct()
     {
-       $this->table = \Config::get('laravel-countries::table_name');
+       $this->table = \Config::get('laravel-countries.table_name');
     }
 
     /**
